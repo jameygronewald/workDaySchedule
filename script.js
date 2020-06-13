@@ -1,52 +1,58 @@
-// Current date and time for header
-$('#currentDay').text(moment().format('dddd MMMM do, YYYY'));
-$('#currentTime').text(moment().format('LTS'));
+$(document).ready(function () {
+    // GLOBAL VARIABLES
+    const workDayHours = [
+        '9',
+        '10',
+        '11',
+        '12',
+        '13',
+        '14',
+        '15',
+        '16',
+        '17'
+    ];
 
-{/*     <div class="timeBlock">
-          <div class="row">
-            <div class="col-2 hour">
-                
-            </div>
-            <div class="col-8 past">
+    let now = moment();
+    let hour = now.hour();
 
-            </div>
-            <div class="col-2 saveBtn">
+    // FUNCTIONS
 
-            </div>
-          </div>
-        </div>      */}
+    // Current date and time for header
+    $('#currentDay').text(moment().format('dddd MMMM Do, YYYY'));
+    currentTime = $('#currentTime').text(moment().format('LTS'));
+    // Function that displays time blocks in scheduling
+    const displayTimeBlocks = function() {
+        let i = 0;
+        while (i < workDayHours.length) {
+            timeBlock = $('<div>').addClass('timeBlock');
+            row = $('<div>').addClass('row');
+            hourColumn = $('<div>').addClass('col-1 hour');
+            activitiesColumn = $('<input>').addClass('col-10');
+            if (workDayHours[i] == hour) {
+                activitiesColumn.addClass('present');
+            }
+            else if (workDayHours[i] < hour) {
+                activitiesColumn.addClass('past');
+            }
+            else {
+                activitiesColumn.addClass('future');
+            }
+            saveColumn = $('<button>').addClass('col-1 saveBtn');
+            $(row).append(hourColumn.text(workDayHours[i]));
+            $(row).append(activitiesColumn);
+            $(row).append(saveColumn);
+            $(timeBlock).append(row);
+            $('.container').append(timeBlock);
+            i++;
+        }
+    };
 
-const workDayHours = [
-    '9:00AM',
-    '10:00AM',
-    '11:00AM',
-    '12:00PM',
-    '1:00PM',
-    '2:00PM',
-    '3:00PM',
-    '4:00PM',
-    '5:00PM'
-]
-// Functions
-const displayTimeBlocks = function() {
-    let i = 0;
-    while (i < workDayHours.length) {
-        let timeBlock = $('<div>').addClass('timeBlock');
-        let row = $('<div>').addClass('row');
-        let hourColumn = $('<div>').addClass('col-1 hour');
-        let activitiesColumn = $('<div>').addClass('col-10');
-        let saveColumn = $('<div>').addClass('col-1 saveBtn');
-        $(row).append(hourColumn.text(workDayHours[i]));
-        $(row).append(activitiesColumn);
-        $(row).append(saveColumn);
-        $(timeBlock).append(row);
-        $('.container').append(timeBlock);
-        i++;
-    }
-};
+    // FUNCTION CALLS
+    displayTimeBlocks();
 
-
-// Function Calls
-displayTimeBlocks();
-
-// Event Listeners
+    // EVENT LISTENERS
+    /* $('.saveBtn').on('click', function() {
+        let savedActivity = $('<input>').val();
+        let locallyStoredActivity = 
+    }) */
+});
