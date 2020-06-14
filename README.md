@@ -19,10 +19,18 @@ Application for organizing your time from 9-5 any day
 ---
 
 ## Installation
+1. Clone the Github Repository [here](https://github.com/jameygronewald/workDaySchedule).
+2. Open index.html in browser.
+
 
 ---
 
 ## Usage
+* Visit the deployed app: [Work Day Schedule](https://jameygronewald.github.io/workDaySchedule/)
+    1. Click on any time-slot (organized by hour of day from 9AM to 5PM) to enter in a task or activity. Slots that are grey represent hours that have already elapsed, the red slot is the current hour, and green slots are hours that have not yet come to pass.
+    2. Click the save button to the right side of the time slot to save your task/activity for that slot so that it will remain even if you refresh the page.
+    3. Schedule your day this way, and delete tasks as you complete them.
+    4. App will automatically update with the correct day, date, and time.
 
 ---
 
