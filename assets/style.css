@@ -21,6 +21,10 @@ body {
     border-bottom: 10px solid black;
   }
   
+  #pageHeader {
+    font-weight: bold;
+  }
+
   .description{
     white-space: pre-wrap;
   }
@@ -69,3 +73,25 @@ body {
     font-size: 20px;
     transition: all .3s ease-in-out;
   }  
+
+  @media (max-width: 768px) {
+    #pageHeader {
+      font-size: 30px;
+    }
+    
+    #pageIntro {
+      font-size: 16px;
+    }
+    
+    #currentDay {
+      font-size: 18px;
+    }
+    
+    #currentTime {
+      font-size: 18px;
+    }
+
+    .hour {
+      font-size: 12px;
+    }
+  }

@@ -24,6 +24,8 @@ $(document).ready(function () {
         '5:00 PM'
     ];
 
+    let activities = [];
+
     let now = moment();
     let hour = now.hour();
     // Current date and time for header
@@ -38,7 +40,7 @@ $(document).ready(function () {
             timeBlock = $('<div>').addClass('timeBlock');
             row = $('<div>').addClass('row');
             hourColumn = $('<div>').addClass('col-2 hour');
-            activitiesColumn = $('<input>').addClass('col-9');
+            activitiesColumn = $('<input>').addClass('col-9 activity').attr('id', 'hour' + i);
             if (workDayHours[i] == hour) {
                 activitiesColumn.addClass('present');
             }
@@ -49,7 +51,7 @@ $(document).ready(function () {
                 activitiesColumn.addClass('future');
             };
             saveColumn = $('<button>').addClass('col-1 saveBtn');
-            icon = $('<svg class="bi bi-archive" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M2 5v7.5c0 .864.642 1.5 1.357 1.5h9.286c.715 0 1.357-.636 1.357-1.5V5h1v7.5c0 1.345-1.021 2.5-2.357 2.5H3.357C2.021 15 1 13.845 1 12.5V5h1z"/><path fill-rule="evenodd" d="M5.5 7.5A.5.5 0 0 1 6 7h4a.5.5 0 0 1 0 1H6a.5.5 0 0 1-.5-.5zM15 2H1v2h14V2zM1 1a1 1 0 0 0-1 1v2a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H1z"/></svg>');
+            icon = $('<svg class="bi bi-unlock" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M9.655 8H2.333c-.264 0-.398.068-.471.121a.73.73 0 0 0-.224.296 1.626 1.626 0 0 0-.138.59V14c0 .342.076.531.14.635.064.106.151.18.256.237a1.122 1.122 0 0 0 .436.127l.013.001h7.322c.264 0 .398-.068.471-.121a.73.73 0 0 0 .224-.296 1.627 1.627 0 0 0 .138-.59V9c0-.342-.076-.531-.14-.635a.658.658 0 0 0-.255-.237A1.122 1.122 0 0 0 9.655 8zm.012-1H2.333C.5 7 .5 9 .5 9v5c0 2 1.833 2 1.833 2h7.334c1.833 0 1.833-2 1.833-2V9c0-2-1.833-2-1.833-2zM8.5 4a3.5 3.5 0 1 1 7 0v3h-1V4a2.5 2.5 0 0 0-5 0v3h-1V4z"/></svg>');
             $(row).append(hourColumn.text(displayHours[i]));
             $(row).append(activitiesColumn);
             $(row).append(saveColumn);
@@ -59,20 +61,22 @@ $(document).ready(function () {
             i++;
         };
     };
-    
+
     // FUNCTION CALLS
     displayTimeBlocks();
-
+    let hourIndex = 0;
+    while (hourIndex < workDayHours.length) {
+        $('#hour' + hourIndex).val(localStorage.getItem('hour' + hourIndex));
+        hourIndex++
+    };
     // EVENT LISTENERS
-    $('.saveBtn').on('click', function() {
-        $(this).html('<svg class="bi bi-archive-fill" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M12.643 15C13.979 15 15 13.845 15 12.5V5H1v7.5C1 13.845 2.021 15 3.357 15h9.286zM6 7a.5.5 0 0 0 0 1h4a.5.5 0 0 0 0-1H6zM.8 1a.8.8 0 0 0-.8.8V3a.8.8 0 0 0 .8.8h14.4A.8.8 0 0 0 16 3V1.8a.8.8 0 0 0-.8-.8H.8z"/></svg>');
-        /* let status;
-        let savedActivity = $('<input>').val();
-        if (this) {
-            status = true;
-        };
-        localStorage.setItem('saved?', JSON.stringify($(this).val()));
-        let storedStatus = JSON.parse(localStorage.getItem('saved?'));
-        let locallyStoredActivity =  */
+    $('.saveBtn').on('click', function(event) {
+        event.preventDefault;
+        $(this).html('<svg class="bi bi-lock-fill" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><rect width="11" height="9" x="2.5" y="7" rx="2"/><path fill-rule="evenodd" d="M4.5 4a3.5 3.5 0 1 1 7 0v3h-1V4a2.5 2.5 0 0 0-5 0v3h-1V4z"/></svg>');
+        let savedActivityIndex = $(this).siblings('.activity').attr('id');
+        let savedActivity = $(this).siblings('.activity').val();
+        let activityObject = {savedActivityIndex, savedActivity};
+        activities.push(activityObject);
+        localStorage.setItem(savedActivityIndex, savedActivity);
     });
 });
