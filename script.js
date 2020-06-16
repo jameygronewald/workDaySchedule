@@ -1,5 +1,6 @@
 $(document).ready(function () {
     // GLOBAL VARIABLES
+    // Array used for loop that generates rows
     const workDayHours = [
         '9',
         '10',
@@ -11,7 +12,7 @@ $(document).ready(function () {
         '16',
         '17'
     ];
-
+    // Array used in tandem with other array to display the hours to the DOM in desired format
     const displayHours = [
         '9:00 AM',
         '10:00 AM',
@@ -23,9 +24,9 @@ $(document).ready(function () {
         '4:00 PM',
         '5:00 PM'
     ];
-
+    // Empty array that will be filled later with saved user inputs
     let activities = [];
-
+    // Variables that hold present time/date info from moment.js API
     let now = moment();
     let hour = now.hour();
     // Current date and time for header
@@ -33,7 +34,7 @@ $(document).ready(function () {
     currentTime = $('#currentTime').text(moment().format('LTS'));
 
     // FUNCTIONS
-    // Function that displays time blocks in scheduling
+    // Function that displays time blocks in the schedule; conditionals determine color of blocks depending on the time of day; also assigns classes and id's to the elements as they're generated for styling and to use for manipulating and saving inputs later
     const displayTimeBlocks = function() {
         let i = 0;
         while (i < workDayHours.length) {
@@ -64,6 +65,7 @@ $(document).ready(function () {
 
     // FUNCTION CALLS
     displayTimeBlocks();
+    // This loop iterates through the array that corresponds to the number of schedule hours and matches the saved item in storage with the corresponding id and allows that value to persist in the user input beyond page refresh
     let hourIndex = 0;
     while (hourIndex < workDayHours.length) {
         $('#hour' + hourIndex).val(localStorage.getItem('hour' + hourIndex));
@@ -73,6 +75,7 @@ $(document).ready(function () {
     $('.saveBtn').on('click', function(event) {
         event.preventDefault;
         $(this).html('<svg class="bi bi-lock-fill" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><rect width="11" height="9" x="2.5" y="7" rx="2"/><path fill-rule="evenodd" d="M4.5 4a3.5 3.5 0 1 1 7 0v3h-1V4a2.5 2.5 0 0 0-5 0v3h-1V4z"/></svg>');
+        // These lines grabs the sibling element of the button that has been clicked that contain the class .activity, then grabs the id of that element (this will be the input that corresponds to the clicked button); then it saves the value of that input in another variable and activityObject repurposes those variables into an object that can be pushed into the activities array; the object is then saved into local storage so it can be retrieved when the page is loaded
         let savedActivityIndex = $(this).siblings('.activity').attr('id');
         let savedActivity = $(this).siblings('.activity').val();
         let activityObject = {savedActivityIndex, savedActivity};

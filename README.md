@@ -4,6 +4,7 @@ Application for organizing your time from 9-5 any day
 ---
 
 ## Description
+Application that runs in browser and provides user with a schedule for a 9AM-5PM workday. Allows user to enter in to-dos, activities, or any input they choose and save the input to their browser's local storage. The user can then refresh the page or close the page and come back later to see their schedule items. The app uses moment.js API to update live time and date at the top of the page, then dynamically generates time slots with jQuery that are color-coded based on the current time of day. Features an intuitive, responsive design that reads and functions well on all device-widths.
 
 ---
 
@@ -22,7 +23,6 @@ Application for organizing your time from 9-5 any day
 1. Clone the Github Repository [here](https://github.com/jameygronewald/workDaySchedule).
 2. Open index.html in browser.
 
-
 ---
 
 ## Usage
@@ -35,14 +35,18 @@ Application for organizing your time from 9-5 any day
 ---
 
 ## Images
-
+![Blank Schedule](./assets/demoImages/blankSchedule.png)
+![Schedule with Activities](./assets/demoImages/scheduleWithActivities.png)
+![Refreshed Page with Saved Activities](./assets/demoImages/activitiesOnRefresh.png)
 ---
 
 ## Credits
+Thanks to Georgia Tech Coding Boot Camp for providing HTML and CSS template-code, and for providing the conceptual design.
 
 ---
 
 ## Collaborators
+I, Jamey Gronewald, am the sole collaborator on this project.
 
 ---
 
